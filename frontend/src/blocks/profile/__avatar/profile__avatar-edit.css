@@ -1,0 +1,37 @@
+.profile__avatar-edit {
+    display: block;
+    background-image: url(../../../images/Pencil.png);
+    background-position: 50%;
+    background-size: cover;
+    border-radius: 50%;
+    height: 124px;
+    opacity: 0;
+    position: absolute;
+    width: 124px;
+    z-index: 2;
+}
+
+.profile__avatar-edit:hover{
+    background-color: #000;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: 26px 26px;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity .5s ease;
+    }
+
+@media screen and (min-width: 560px){
+    .profile__avatar-edit{
+        left: 0px;
+        top: 40px;
+    }
+}
+
+@media screen and (min-width: 768px){
+    .profile__avatar-edit{
+        left: 19px;
+        top: 38px;
+    }
+}
+

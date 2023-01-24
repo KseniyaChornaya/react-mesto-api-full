@@ -1,0 +1,17 @@
+.popup__input_type_auth {
+  background-color: #000;
+  border-bottom: 2px solid #cccccc;
+  margin: 0;
+  outline: none;
+  font-weight: 500;
+  color: #ffffff;
+  margin-bottom: 30px;
+}
+
+.popup__input_type_auth::placeholder {
+  color: #cccccc;
+}
+
+.popup__input_type_auth:focus {
+  border-bottom: 2px solid #ffffff;
+}

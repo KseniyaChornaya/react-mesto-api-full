@@ -1,0 +1,7 @@
+.auth__subtitle_type_link{
+    text-decoration: none;
+}
+
+.auth__subtitle_type_link:hover{
+    opacity: 0.6;
+}
