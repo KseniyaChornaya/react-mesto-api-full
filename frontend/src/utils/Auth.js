@@ -1,6 +1,6 @@
 class Auth {
   constructor() {
-    this._host = "http://kschornaya.nomoredomains.rocks:3000/";
+    this._host = "http://api.kschornaya.nomoredomains.rocks";
   }
 
   _getResponse(res) {
