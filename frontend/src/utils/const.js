@@ -31,9 +31,10 @@ export const config = {
     submitButtonSelector: ".popup__submit",
     inputErrorClass: "popup__input_type_error",
     errorActiveClass: "popup__input-error_active",
-    host: 'http://localhost:3000/',   
+    host: 'https://api.kschornaya.nomoredomains.rocks/',   
     headers: {
       "Content-type": "application/json",
       Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+
     }
   };

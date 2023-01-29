@@ -13,6 +13,11 @@ app.use(cors);
 app.use(cookieParser());
 app.use(express.json());
 app.use(requestLogger);
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 app.use(routes);
 
 async function connect() {
@@ -20,7 +25,6 @@ async function connect() {
 
   app.listen(PORT);
 }
-
 connect();
 app.use(errorLogger);
 app.use(errors());
