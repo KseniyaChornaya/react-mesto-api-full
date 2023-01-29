@@ -9,3 +9,9 @@
 .popup__submit_type_auth:disabled {
     background-color: #FFFFFF;
 }
+
+@media screen and (min-width: 1024px){
+    .popup__submit_type_auth{
+        margin: 216px 0 25px 0;
+    }
+}

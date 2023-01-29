@@ -30,20 +30,9 @@ function App() {
   const [isSuccess, setIsSuccess] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    api
-      .getCards()
-      .then((initialCards) => {
-        setCards(initialCards);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
   function handleAddCard(cardData) {
     api
-      .createCard(cardData)
+      .createCard(cardData.values)
       .then((newCard) => {
         setCards([newCard, ...cards]);
         closeAllPopups();
@@ -116,14 +105,21 @@ function App() {
   }
 
   useEffect(() => {
-    api
-      .getUserInfo()
-      .then((userData) => {
-        setCurrentUser(userData);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+    getPageInfo()
+  }, [loggedIn]);
 
+  function getPageInfo(){
+    if(loggedIn) {
+      Promise
+      .all([api.getUserInfo(), api.getCards()])
+      .then(([userData, initalCards])=>{
+        setCurrentUser(userData)
+        setCards(initalCards.reverse())
+      })
+      .catch((err) => {console.log(err)})
+    }
+  }
+  
   function handleUpdateUser(userInfo) {
     api
       .editUserInfo(userInfo.values)
@@ -161,9 +157,10 @@ function App() {
   function onLogin(password, email) {
     auth
       .signIn(password, email)
+      
       .then((response) => {
-        if (response.token) {
-          localStorage.setItem("token", response.token);
+        if (response.userToken) {
+          localStorage.setItem("jwt", response.userToken);
           setUserEmail(email);
           setLoggedIn(true);
           navigate("/");
@@ -179,20 +176,20 @@ function App() {
 
   function handleUserLogOut() {
     if (loggedIn) {
-      localStorage.removeItem("token");
+      localStorage.removeItem("jwt");
       setUserEmail("");
       setLoggedIn(false);
-      navigate("/");
+      navigate("/sign-in");
     }
   }
 
   function handleCheckToken() {
-    const jwt = localStorage.getItem("token");
-    if (jwt) {
+    const token = localStorage.getItem("jwt");
+    if (token) {
       auth
-        .checkToken(jwt)
+        .checkToken()
         .then((response) => {
-          setUserEmail(response.data.email);
+          setUserEmail(response.email);
           setLoggedIn(true);
           navigate("/");
         })
@@ -203,6 +200,7 @@ function App() {
         });
     }
   }
+
 
   useEffect(() => {
     handleCheckToken();
@@ -240,15 +238,6 @@ function App() {
             />
             <Route path="/sign-in" element={<Login onLogin={onLogin} />} />
           </Routes>
-          <Main
-            onAddPlace={handleAddPlaceClick}
-            onEditProfile={handleEditProfileClick}
-            onEditAvatar={handleEditAvatarClick}
-            onCardClick={handleCardClick}
-            cards={cards}
-            onCardLike={handleCardLike}
-            onCardDelete={handleCardDelete}
-          />
           <Footer />
           <ImagePopup
             onClose={closeAllPopups}

@@ -28,11 +28,14 @@ class Api {
     .then((res) => this._getJsonErrors(res))
   }
 
-  editUserInfo(data) {
+  editUserInfo(user) {
     return fetch(this._host + "users/me", {
       method: "PATCH",
       headers: this._headers,
-      body: JSON.stringify(data),
+      body: JSON.stringify({    
+          name: user.name,
+          about: user.about
+      }),
     })
     .then((res) => this._getJsonErrors(res))
   }
@@ -72,9 +75,9 @@ class Api {
   }
 
   _handleLike(method, id) {
-    return fetch(`${this._host}/cards/${id}/likes`, {
+    return fetch(`${this._host}cards/${id}/likes`, {
         method: method,
-        headers: this._headers
+        headers: this._headers,
     })
     .then((res) => this._getJsonErrors(res))
 }

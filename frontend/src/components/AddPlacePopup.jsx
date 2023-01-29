@@ -16,7 +16,7 @@ const AddPlacePopup = ({ isOpen, onClose, onAddCard }) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    onAddCard({ name: values.name, link: values.url });
+    onAddCard({ values });
   }
 
   return (
@@ -47,9 +47,9 @@ const AddPlacePopup = ({ isOpen, onClose, onAddCard }) => {
         id="link"
         type="url"
         className="popup__input popup__input_place_link"
-        name="url"
+        name="link"
         minLength="2"
-        value={values.url || ""}
+        value={values.link || ""}
         onChange={handleChange}
       />
       <span className="popup__input-error" id="link-error"></span>

@@ -6,7 +6,7 @@ const Login = ({ onLogin }) => {
     password: "",
   };
 
-  const { values, handleChange} = useForm(loginData);
+  const { values, handleChange } = useForm(loginData);
 
   function handleLoginSubmit(evt) {
     evt.preventDefault();
@@ -17,9 +17,9 @@ const Login = ({ onLogin }) => {
     <section className="auth">
       <form
         className="popup__form popup__form_type_auth"
-        onSubmit={handleLoginSubmit}
+        onSubmit={ handleLoginSubmit }
       >
-        <h3 className="popup__title">Вход</h3>
+        <h3 className="popup__title popup__title_type_auth">Вход</h3>
         <input
           type="email"
           className="popup__input popup__input_type_auth"
@@ -27,8 +27,8 @@ const Login = ({ onLogin }) => {
           name="email"
           minLength="4"
           maxLength="40"
-          value={values.email || ""}
-          onChange={handleChange}
+          value={ values.email || "" }
+          onChange={ handleChange }
           required
         />
         <input
@@ -38,8 +38,8 @@ const Login = ({ onLogin }) => {
           name="password"
           minLength="4"
           maxLength="40"
-          value={values.password || ""}
-          onChange={handleChange}
+          value={ values.password || "" }
+          onChange={ handleChange }
           required
         />
         <button

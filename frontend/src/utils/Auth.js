@@ -1,6 +1,6 @@
 class Auth {
   constructor() {
-    this._host = "http://api.kschornaya.nomoredomains.rocks";
+    this._host = "http://localhost:3000";
   }
 
   _getResponse(res) {
@@ -30,12 +30,12 @@ class Auth {
     }).then(this._getResponse);
   }
 
-  checkToken(jwt) {
+  checkToken() {
     return fetch(`${this._host}/users/me`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${jwt}`,
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
       },
     }).then(this._getResponse);
   }

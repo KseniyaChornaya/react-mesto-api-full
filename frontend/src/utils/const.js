@@ -31,9 +31,9 @@ export const config = {
     submitButtonSelector: ".popup__submit",
     inputErrorClass: "popup__input_type_error",
     errorActiveClass: "popup__input-error_active",
-    host: 'https://mesto.nomoreparties.co/v1/cohort-47/',   
+    host: 'http://localhost:3000/',   
     headers: {
-      authorization: '862c5689-9bb9-4098-8d9c-6b67add907ce',
-      "content-type": "application/json",
+      "Content-type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem('jwt')}`,
     }
   };

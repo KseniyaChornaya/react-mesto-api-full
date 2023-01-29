@@ -23,6 +23,7 @@ exports.createCards = (req, res, next) => {
 
 exports.getCards = (_, res, next) => {
   Card.find({})
+    .populate(['likes'])
     .then((cards) => {
       res.send(cards);
     })
@@ -37,10 +38,10 @@ exports.deleteCards = (req, res, next) => {
     .then((card) => {
       if (card.owner.toString() !== req.user._id) {
         throw new ForbiddenError('Невозможно удалить чужие карточки');
+      } else {
+        return Card.deleteOne(card)
+          .then(() => res.send(card));
       }
-      return Card.findByIdAndDelete(req.params.cardId).then(() => {
-        res.send({ message: 'Карточка удалена' });
-      });
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -57,10 +58,12 @@ exports.likeCard = (req, res, next) => {
     { $addToSet: { likes: req.user._id } },
     { new: true },
   )
+    .populate(['likes'])
     .then((card) => {
       if (!card) {
         throw new NotFoundError('Карточка не найдена');
       }
+      console.log(card)
       res.send(card);
     })
     .catch((err) => {
@@ -78,6 +81,7 @@ exports.dislikeCard = (req, res, next) => {
     { $pull: { likes: req.user._id } },
     { new: true },
   )
+    .populate(['likes'])
     .then((card) => {
       if (!card) {
         throw new NotFoundError('Карточка не найдена');
