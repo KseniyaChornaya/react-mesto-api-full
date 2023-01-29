@@ -13,7 +13,7 @@
     padding-right: 5px;
 }
 
-@media screen and (min-width: 920px){
+@media screen and (min-width: 560px){
     .footer__copyright{
         font-size: 18px;
         line-height: 22px;

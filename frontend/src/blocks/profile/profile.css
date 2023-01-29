@@ -11,20 +11,22 @@
     color: white;
 }
 
-@media screen and (min-width: 560px){
+/* @media screen and (min-width: 560px){
     .profile{
-        flex-direction: row;
-        justify-content: space-around;
+        padding-bottom: 39px;
+        padding-top: 34px;
     }
-}
+} */
 
-@media screen and (min-width: 768px){
+@media screen and (min-width: 560px){
     .profile{
         padding-right: 19px;
         padding-left: 19px;
         max-width: 880px;
         padding-bottom: 39px;
         padding-top: 34px;
+        flex-direction: row;
+        justify-content: space-around;
     }
 }
 
