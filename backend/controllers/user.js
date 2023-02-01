@@ -73,16 +73,10 @@ module.exports.getUserById = (req, res, next) => {
     .then((user) => {
       res.status(200).send(user);
     })
-    .catch((err) => {
-      if (err.name === 'ValidationError') {
-        next(new BadRequestError('Отправлены некорректные данные'));
-      } else {
-        next(err);
-      }
-    });
+    .catch(next);
 };
 
-const updateUser = (req, res, next, userInfo) => {
+module.exports.updateUser = (req, res, next, userInfo) => {
   User.findByIdAndUpdate(req.user._id, userInfo, {
     new: true,
     runValidators: true,
@@ -97,17 +91,17 @@ const updateUser = (req, res, next, userInfo) => {
     });
 };
 
-module.exports.updateUserInfo = (req, res, next) => {
-  const userInfo = {
-    name: req.body.name,
-    about: req.body.about,
-  };
-  updateUser(req, res, next, userInfo);
-};
+// module.exports.updateUserInfo = (req, res, next) => {
+//   const userInfo = {
+//     name: req.body.name,
+//     about: req.body.about,
+//   };
+//   updateUser(req, res, next, userInfo);
+// };
 
-module.exports.updateUserAvatar = (req, res, next) => {
-  const userInfo = {
-    avatar: req.body.avatar,
-  };
-  updateUser(req, res, next, userInfo);
-};
+// module.exports.updateUserAvatar = (req, res, next) => {
+//   const userInfo = {
+//     avatar: req.body.avatar,
+//   };
+//   updateUser(req, res, next, userInfo);
+// };
