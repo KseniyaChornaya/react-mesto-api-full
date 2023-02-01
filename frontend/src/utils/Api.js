@@ -1,9 +1,9 @@
 import {config} from "./const";
 
 class Api {
-  constructor(host, headers) {
-    this._host = host;
-    this._headers = headers;
+  constructor(options) {
+    this._getOptions = options;
+    this._host = options().host;
   }
 
   _getJsonErrors(res){
@@ -15,7 +15,7 @@ class Api {
 
   getCards() {
     return fetch(this._host + "cards", {
-      headers: this._headers,
+      headers: this._getOptions().headers,
     })
     .then((res) => this._getJsonErrors(res))
   }
@@ -23,7 +23,7 @@ class Api {
   getUserInfo() {
     return fetch(this._host + "users/me", {
       method: "GET",
-      headers: this._headers,
+      headers: this._getOptions().headers,
     })
     .then((res) => this._getJsonErrors(res))
   }
@@ -31,7 +31,7 @@ class Api {
   editUserInfo(user) {
     return fetch(this._host + "users/me", {
       method: "PATCH",
-      headers: this._headers,
+      headers: this._getOptions().headers,
       body: JSON.stringify({    
           name: user.name,
           about: user.about
@@ -43,7 +43,7 @@ class Api {
   createCard(payload) {
     return fetch(this._host + "cards", {
       method: "POST",
-      headers: this._headers,
+      headers: this._getOptions().headers,
       body: JSON.stringify(payload),
     })
     .then((res) => this._getJsonErrors(res))
@@ -52,7 +52,7 @@ class Api {
   setAvatar(data) {
     return fetch(this._host + "users/me/avatar", {
       method: "PATCH",
-      headers: this._headers,
+      headers: this._getOptions().headers,
       body: JSON.stringify({ avatar: data }),
     })
     .then((res) => this._getJsonErrors(res))
@@ -61,7 +61,7 @@ class Api {
   deleteCard(id) {
     return fetch(`${this._host}cards/${id}`, {
       method: "DELETE",
-      headers: this._headers,
+      headers: this._getOptions().headers,
     })
     .then((res) => this._getJsonErrors(res))
   }
@@ -69,7 +69,7 @@ class Api {
   toggleLike(id, isLiked) {
     return fetch(`${this._host}cards/${id}/likes`, {
       method: isLiked ? "DELETE" : "PUT",
-      headers: this._headers,
+      headers: this._getOptions().headers,
     })
     .then((res) => this._getJsonErrors(res))
   }
@@ -77,7 +77,7 @@ class Api {
   _handleLike(method, id) {
     return fetch(`${this._host}cards/${id}/likes`, {
         method: method,
-        headers: this._headers,
+        headers: this._getOptions().headers,
     })
     .then((res) => this._getJsonErrors(res))
 }
@@ -87,5 +87,5 @@ class Api {
   }
 }
 
-const api = new Api(config.host, config.headers);
+const api = new Api(config);
 export default api;

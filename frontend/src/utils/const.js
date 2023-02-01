@@ -25,7 +25,8 @@ export const avatarEditForm = document.querySelector("#editAvatar");
 export const avatarEditButton = document.querySelector(".profile__avatar-edit");
 export const confirmButton = document.querySelector("#confirmationSubmit");
 
-export const config = {
+export function config(){ 
+  return {
     formSelector: ".popup__form",
     inputSelector: ".popup__input",
     submitButtonSelector: ".popup__submit",
@@ -35,6 +36,6 @@ export const config = {
     headers: {
       "Content-type": "application/json",
       Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-
     }
-  };
+  }
+};
