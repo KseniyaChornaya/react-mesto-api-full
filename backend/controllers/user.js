@@ -1,8 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-require('dotenv').config();
-
 const { JWT_SECRET, NODE_ENV } = process.env;
 const User = require('../models/user');
 const NotFoundError = require('../errors/not-found-error');
@@ -76,8 +74,12 @@ module.exports.getUserById = (req, res, next) => {
     .catch(next);
 };
 
-module.exports.updateUser = (req, res, next, userInfo) => {
-  User.findByIdAndUpdate(req.user._id, userInfo, {
+module.exports.updateUser = (req, res, next) => {
+  User.findByIdAndUpdate(req.user._id, {
+    name: req.body.name,
+    about: req.body.about,
+    avatar: req.body.avatar,
+  }, {
     new: true,
     runValidators: true,
   })
@@ -90,18 +92,3 @@ module.exports.updateUser = (req, res, next, userInfo) => {
       }
     });
 };
-
-// module.exports.updateUserInfo = (req, res, next) => {
-//   const userInfo = {
-//     name: req.body.name,
-//     about: req.body.about,
-//   };
-//   updateUser(req, res, next, userInfo);
-// };
-
-// module.exports.updateUserAvatar = (req, res, next) => {
-//   const userInfo = {
-//     avatar: req.body.avatar,
-//   };
-//   updateUser(req, res, next, userInfo);
-// };
