@@ -1,6 +1,6 @@
 const allowedCors = [
-    'http://kschornaya.nomoredomains.icu',
-    'https://kschornaya.nomoredomains.icu',
+    'https://kschornaya.nomoredomains.rocks',
+    'https://api.kschornaya.nomoredomains.rocks',
     'http://localhost:3000',
     'https://localhost:3000',
     'http://localhost:3001',

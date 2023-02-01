@@ -12,7 +12,6 @@ exports.createCards = (req, res, next) => {
     .then((card) => {
       res.send(card);
     })
-    .populate(['owner'])
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new BadRequestError('Отправлены некорректные данные'));
